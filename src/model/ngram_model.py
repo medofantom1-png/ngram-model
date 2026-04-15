@@ -1,4 +1,6 @@
 import json
+from pathlib import Path
+import os
 from collections import Counter, defaultdict
 
 class NGramModel:
@@ -75,18 +77,20 @@ class NGramModel:
 
     def save_model(self, path):
         """Save the probability dictionary as a JSON file."""
-        os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(self.model, f)
     
     def save_vocab(self, path):
         """Save the vocabulary list as a JSON file."""
-        os.makedirs(os.path.dirname(path), exist_ok=True)
+        output_path = Path(path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(list(self.vocab), f)
 
     def load(self, model_path, vocab_path):
         """Load previously trained model and vocabulary."""
+        output_path = Path(model_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
         with open(model_path, 'r', encoding='utf-8') as f:
             self.model = json.load(f)
         with open(vocab_path, 'r', encoding='utf-8') as f:
