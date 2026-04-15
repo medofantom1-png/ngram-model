@@ -77,7 +77,9 @@ class NGramModel:
 
     def save_model(self, path):
         """Save the probability dictionary as a JSON file."""
-        with open(path, 'w', encoding='utf-8') as f:
+        output_path = Path(path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(self.model, f)
     
     def save_vocab(self, path):
