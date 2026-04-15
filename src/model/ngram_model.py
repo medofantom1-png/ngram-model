@@ -75,11 +75,13 @@ class NGramModel:
 
     def save_model(self, path):
         """Save the probability dictionary as a JSON file."""
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(self.model, f)
     
     def save_vocab(self, path):
         """Save the vocabulary list as a JSON file."""
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(list(self.vocab), f)
 
